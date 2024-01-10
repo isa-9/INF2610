@@ -50,10 +50,16 @@ struct Wing* createWings(long id) {
 }
 
 void createPlanes(struct Plane* planes, char** id, int nPlanes) {
+    int wheelsId;
+    long wingsId;
     for(int i = 0; i < nPlanes; i++) {
         planes[i].isAvailable = true;
-        planes[i].wings = createWings();
-        planes[i].wheels = createWheels();
+
+        sscanf(id[i], "%d", &wheelsId);
+        planes[i].wheels = createWheels(wheelsId);
+
+        sscanf(id[i], "%ld", &wingsId);
+        planes[i].wings = createWings(wingsId);
     }
 }
 
@@ -107,11 +113,12 @@ int main(int argc, char** argv) {
 
 
     /* Create plane - [4 points] */
-    /*
+
     int numberOfPlanes = 3;
-    Plane* planes = malloc(sizeof(Plane) * numberOfPlanes);
-    createPlanes(planes, *id, 3);
-    */
+    struct Plane* planes = malloc(sizeof(struct Plane) * numberOfPlanes);
+    char* planesId[] = { "1000", "304321684", "202020202020"};
+    // createPlanes(planes, *id, 3);
+    createPlanes(planes, planesId, 3);
 
     /* PARTIE 3 - [6 points] */
 
