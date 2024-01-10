@@ -8,6 +8,7 @@
 #include <sys/wait.h>
 #include <stdio.h> 
 #include <stdbool.h>
+#include <string.h>
 
 struct Wheel {
     int id;
@@ -49,17 +50,18 @@ struct Wing* createWings(long id) {
     return wings;
 }
 
-void createPlanes(struct Plane* planes, char** id, int nPlanes) {
-    int wheelsId;
-    long wingsId;
+void createPlanes(struct Plane* planes, char* id, int nPlanes) {
+    int idInt = sscanf(id, "%d", &idInt);
+    // int wheelsId;
+    // long wingsId;
     for(int i = 0; i < nPlanes; i++) {
         planes[i].isAvailable = true;
 
-        sscanf(id[i], "%d", &wheelsId);
-        planes[i].wheels = createWheels(wheelsId);
+        //sscanf(id[i], "%d", &wheelsId);
+        planes[i].wheels = createWheels(idInt);
 
-        sscanf(id[i], "%ld", &wingsId);
-        planes[i].wings = createWings(wingsId);
+        //sscanf(id[i], "%ld", &wingsId);
+        planes[i].wings = createWings((long)idInt++);
     }
 }
 
@@ -67,7 +69,7 @@ void setAvailability(struct Plane* plane, bool isAvailable ){
     plane->isAvailable = isAvailable;
 }
 
-void getAvailablePlanes(struct Plane** planes, int nPlanes){
+char** getAvailablePlanes(struct Plane** planes, int nPlanes){
     char** id = malloc(nPlanes*sizeof(char*));
     int j = 0;
     for (int i = 0; i < nPlanes; i++){
@@ -75,22 +77,47 @@ void getAvailablePlanes(struct Plane** planes, int nPlanes){
             id[j++] = planes[i]->id;
         }    
     }
-
+    return id;
 }
 
 void setPlaneType(struct Plane* plane){
     struct Wing firstWing = plane->wings[0];
-    if(firstWing.id >= 0 && firstWing.id <= 2){
-        plane->planeType = "Small";
-    } else if (firstWing.id >= 3 && firstWing.id <= 6)
-    {
-        plane->planeType = "Medium";
-    }else if (firstWing.id == 7 || firstWing.id == 8)
-    {
-        plane->planeType = "Large";
+
+    int identifier = 0;
+    for(int i = 8; i >=0; i--) {
+        identifier += firstWing.id[i];
+        identifier *= 10;
     }
     
-    
+    identifier %= 9;
+
+    char* size;
+
+    if(identifier >= 0 && identifier <= 2) {
+        size = "Small\0";
+    } else if (identifier >= 3 && identifier <= 6) {
+        size = "Medium\0";
+    } else if (identifier == 7 || identifier == 8) {
+        size = "Large\0";
+    }
+
+    int index = 0;
+    while(size[index] != '\0') {
+        plane->planeType[index] = size[index];
+    }
+
+    printf("%s", size);    
+}
+
+struct Plane* getPlanesByType(struct Plane** planes, char* type, int nPlanes) {
+    struct Plane* typePlanes = malloc(nPlanes*sizeof(struct Plane));
+    int j = 0;
+    for (int i = 0; i < nPlanes; i++){
+        if(strcmp(type, planes[i]->planeType)) {
+            typePlanes[j++] = *planes[i];
+        }    
+    }
+    return typePlanes;
 }
 
 int main(int argc, char** argv) {
@@ -116,7 +143,7 @@ int main(int argc, char** argv) {
 
     int numberOfPlanes = 3;
     struct Plane* planes = malloc(sizeof(struct Plane) * numberOfPlanes);
-    char* planesId[] = { "1000", "304321684", "202020202020"};
+    char planesId[] = "304321684";
     // createPlanes(planes, *id, 3);
     createPlanes(planes, planesId, 3);
 
@@ -129,19 +156,17 @@ int main(int argc, char** argv) {
     
 
     /* Get available planes - [1 point] */
-    int numberOfPlanes = 3;
-    getAvailablePlanes(planes, numberOfPlanes);
+    getAvailablePlanes(&planes, numberOfPlanes);
     
 
     /* Classify planes - [2 points] */
     
-    struct Plane plane = planes[1];
+    plane = planes[1];
     setPlaneType(&plane);
     
 
     /* Return type specific planes - [2 points] */
-    /*
+    
     char planeType[] = "Small";
-    getPlanesByType(planes, planeType,numberOfPlanes);
-    */
+    getPlanesByType(&planes, planeType,numberOfPlanes);
 }
