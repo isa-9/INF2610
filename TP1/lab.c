@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <stdio.h> 
+#include <stdbool.h>
 
 struct Wheel {
     int id;
@@ -14,15 +15,15 @@ struct Wheel {
 };
 
 struct Wing {
-    int id[];
-}
+    int* id;
+};
 
 struct Plane {
-    char id[];
+    char* id;
     char planeType[10];
     bool isAvailable;
-    Wheel wheels[];
-    Wing wings[];
+    struct Wheel* wheels;
+    struct Wing* wings;
 };
 
 
