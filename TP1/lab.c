@@ -26,6 +26,37 @@ struct Plane {
     struct Wing* wings;
 };
 
+struct Wheel *createWheels(int id) {
+    struct Wheel* wheels = malloc(7 * sizeof(struct Wheel));
+    for(int i = 0; i < 7; i++) {
+        wheels[i].id = id + i;
+        wheels[i].isRearWheel = i > 2;
+    }
+    return wheels;
+}
+
+void populateWingAttributes(struct Wing* wing, int id) {
+    for(int i = 0; i < 9; i++) {
+        wing->id[i] = id % 10;
+        id /= 10;
+    }
+}
+
+struct Wing* createWings(long id) {
+    struct Wing* wings = malloc(2 * sizeof(struct Wing));
+    populateWingAttributes(&wings[0], id++);
+    populateWingAttributes(&wings[1], id);
+    return wings;
+}
+
+void createPlanes(struct Plane* planes, char** id, int nPlanes) {
+    for(int i = 0; i < nPlanes; i++) {
+        planes[i].isAvailable = true;
+        planes[i].wings = createWings();
+        planes[i].wheels = createWheels();
+    }
+}
+
 
 int main(int argc, char** argv) {
     printf("Hello\n");
@@ -36,17 +67,15 @@ int main(int argc, char** argv) {
     /* PARTIE 2 - [10 points] */
 
     /* Create wheel - [2 points] */
-    /*
-    Wheel[] wheels;
-    wheels = createWheels(id);    
-    */
+
+    struct Wheel* wheels = createWheels(id);
+
 
     /* Create wing - [4 points] */
-    /*
+
     long longId = 1;
-    Wing[] wings;
-    wings = createWings(longId);
-    */
+    struct Wing* wings = createWings(longId);
+
 
     /* Create plane - [4 points] */
     /*
