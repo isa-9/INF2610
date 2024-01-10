@@ -1,12 +1,29 @@
 /* INF2610 - TP1
-/ Matricule 1 : 
-/ Matricule 2 : 
+/ Matricule 1 : 2204379
+/ Matricule 2 : 2212694
 */
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
 #include <sys/wait.h>
 #include <stdio.h> 
+
+struct Wheel {
+    int id;
+    bool isRearWheel;
+};
+
+struct Wing {
+    int id[];
+}
+
+struct Plane {
+    char id[];
+    char planeType[10];
+    bool isAvailable;
+    Wheel wheels[];
+    Wing wings[];
+};
 
 
 int main(int argc, char** argv) {
