@@ -37,7 +37,9 @@ struct Wheel *createWheels(int id) {
 }
 
 void populateWingAttributes(struct Wing* wing, int id) {
+    printf("AAAA");
     for(int i = 0; i < 9; i++) {
+        printf("i: %d", i);
         wing->id[i] = id % 10;
         id /= 10;
     }
@@ -45,8 +47,14 @@ void populateWingAttributes(struct Wing* wing, int id) {
 
 struct Wing* createWings(long id) {
     struct Wing* wings = malloc(2 * sizeof(struct Wing));
-    populateWingAttributes(&wings[0], id++);
+    wings[0].id = malloc(9 * sizeof(int));
+    wings[1].id = malloc(9 * sizeof(int));
+
+    printf("A\n");
+    populateWingAttributes(&(wings[0]), id++);
+    printf("B\n");
     populateWingAttributes(&wings[1], id);
+    
     return wings;
 }
 
@@ -131,12 +139,13 @@ int main(int argc, char** argv) {
     /* Create wheel - [2 points] */
 
     struct Wheel* wheels = createWheels(id);
-
+    printf("1\n");
 
     /* Create wing - [4 points] */
 
     long longId = 1;
     struct Wing* wings = createWings(longId);
+    printf("2\n");
 
 
     /* Create plane - [4 points] */
@@ -146,6 +155,7 @@ int main(int argc, char** argv) {
     char planesId[] = "304321684";
     // createPlanes(planes, *id, 3);
     createPlanes(planes, planesId, 3);
+    printf("3\n");
 
     /* PARTIE 3 - [6 points] */
 
@@ -153,20 +163,24 @@ int main(int argc, char** argv) {
     
     struct Plane plane = planes[0];
     setAvailability(&plane, true);
+    printf("4\n");
     
 
     /* Get available planes - [1 point] */
     getAvailablePlanes(&planes, numberOfPlanes);
+    printf("5\n");
     
 
     /* Classify planes - [2 points] */
     
     plane = planes[1];
     setPlaneType(&plane);
+    printf("6\n");
     
 
     /* Return type specific planes - [2 points] */
     
     char planeType[] = "Small";
     getPlanesByType(&planes, planeType,numberOfPlanes);
+    printf("7\n");
 }
