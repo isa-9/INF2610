@@ -132,6 +132,22 @@ struct Plane* getPlanesByType(struct Plane** planes, char* type, int nPlanes) {
     return typePlanes;
 }
 
+/* TEST FUNCTIONS */
+void printWheel(struct Wheel* wheel) {
+    printf("Wheel\n");
+    printf("\tid: %d\n", wheel->id);
+    printf("\tisRearWheel: %s", wheel->isRearWheel ? "true" : "false");
+}
+
+void printWing(struct Wing* wing) {
+    printf("Wing:\n");
+    printf("\t id: [ %d", wing->id[8]);
+    for (int i = 7; i >= 0; i--) {
+        printf(", %d", wing->id[i]);
+    }
+    printf(" ]\n");
+}
+
 int main(int argc, char** argv) {
     printf("Hello\n");
     /* Remove comment once the code is completed for the given section to test */
@@ -148,6 +164,7 @@ int main(int argc, char** argv) {
 
     long longId = 1;
     struct Wing* wings = createWings(longId);
+    // printWing(&wings[0]);
 
 
     /* Create plane - [4 points] */
