@@ -29,25 +29,33 @@ struct Plane {
 };
 
 struct Wheel *createWheels(int id) {
-    struct Wheel* wheels = malloc(7 * sizeof(struct Wheel));
-    for(int i = 0; i < 7; i++) {
+     const int N_WHEELS = 7;
+     const int INDEX_REARWHEEL = 7;
+
+    struct Wheel* wheels = malloc(N_WHEELS * sizeof(struct Wheel));
+    for(int i = 0; i < N_WHEELS; i++) {
         wheels[i].id = id + i;
-        wheels[i].isRearWheel = i > 2;
+        wheels[i].isRearWheel = i > INDEX_REARWHEEL;
     }
     return wheels;
 }
 
 void populateWingAttributes(struct Wing* wing, int id) {
-    for(int i = 0; i < 9; i++) {
-        wing->id[i] = id % 10;
-        id /= 10;
+    const int TABLE_SIZE = 9;
+    const int DECIMAL_BASE = 10;
+
+    for(int i = 0; i < TABLE_SIZE; i++) {
+        wing->id[i] = id % DECIMAL_BASE;
+        id /= DECIMAL_BASE;
     }
 }
 
 struct Wing* createWings(long id) {
+    const int TABLE_SIZE = 9;
+
     struct Wing* wings = malloc(2 * sizeof(struct Wing));
-    wings[0].id = malloc(9 * sizeof(int));
-    wings[1].id = malloc(9 * sizeof(int));
+    wings[0].id = malloc(TABLE_SIZE * sizeof(int));
+    wings[1].id = malloc(TABLE_SIZE * sizeof(int));
 
     populateWingAttributes(&(wings[0]), id++);
     populateWingAttributes(&wings[1], id);
@@ -90,13 +98,19 @@ char** getAvailablePlanes(struct Plane** planes, int nPlanes){
 
 void setPlaneType(struct Plane* plane){
     const int N_CHAR_TYPE = 10;
+    const int DECIMAL_BASE = 10;
     const int MODULO_DIVIDER = 9;
+    const int TABLE_LENGHT = 9;
+    const int MAX_SMALL = 2;
+    const int MAX_MEDIUM = 6;
+    
+
 
     struct Wing firstWing = plane->wings[0];
 
     int identifier = 0;
-    for(int i = 8; i >=0; i--) {
-        identifier *= 10;
+    for(int i = TABLE_LENGHT-1; i >=0; i--) {
+        identifier *= DECIMAL_BASE;
         identifier += firstWing.id[i];
     }
     
@@ -104,9 +118,9 @@ void setPlaneType(struct Plane* plane){
 
     char* size = malloc(N_CHAR_TYPE * sizeof(char));
 
-    if(identifier <= 2) {
+    if(identifier <= MAX_SMALL) {
         size = "Small\0";
-    } else if (identifier <= 6) {
+    } else if (identifier <= MAX_MEDIUM) {
         size = "Medium\0";
     } else {
         size = "Large\0";
@@ -140,24 +154,28 @@ void printWheel(struct Wheel* wheel) {
 }
 
 void printWing(struct Wing* wing) {
+    const int TABLE_ID_WING_LENGHT = 9;
     printf("Wing:\n");
-    printf("\t id: [ %d", wing->id[8]);
-    for (int i = 7; i >= 0; i--) {
+    printf("\t id: [ %d", wing->id[TABLE_ID_WING_LENGHT-1]);
+    for (int i = TABLE_ID_WING_LENGHT-2; i >= 0; i--) {
         printf(", %d", wing->id[i]);
     }
     printf(" ]\n");
 }
 
 void printPlane(struct Plane* plane){
+    const int N_WHEELS = 7;
+    const int N_WINGS = 2;
+
     printf("Plane %s: \n", plane->id);
     printf("\tplaneType: %s\n", plane->planeType);
     printf("\tisAvailable: %s\n", plane->isAvailable ? "true" : "false");
 
-    for (int i = 0; i < 7; i++){
+    for (int i = 0; i < N_WHEELS; i++){
         printWheel(&(plane->wheels[i]));
     }
 
-    for (int i = 0; i < 2; i++){
+    for (int i = 0; i < N_WINGS; i++){
         printWing(&(plane->wings[i]));
     }
     
