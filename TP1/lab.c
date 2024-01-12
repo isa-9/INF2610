@@ -148,6 +148,21 @@ void printWing(struct Wing* wing) {
     printf(" ]\n");
 }
 
+void printPlane(struct Plane* plane){
+    printf("Plane %s: \n", plane->id);
+    printf("\tplaneType: %s\n", plane->planeType);
+    printf("\tisAvailable: %s\n", plane->isAvailable ? "true" : "false");
+
+    for (int i = 0; i < 7; i++){
+        printWheel(&(plane->wheels[i]));
+    }
+
+    for (int i = 0; i < 2; i++){
+        printWing(&(plane->wings[i]));
+    }
+    
+}
+
 int main(int argc, char** argv) {
     printf("Hello\n");
     /* Remove comment once the code is completed for the given section to test */
