@@ -66,10 +66,8 @@ void createPlanes(struct Plane* planes, char* id, int nPlanes) {
 
         planes[i].isAvailable = true;
 
-        //sscanf(id[i], "%d", &wheelsId);
         planes[i].wheels = createWheels(idInt);
 
-        //sscanf(id[i], "%ld", &wingsId);
         planes[i].wings = createWings((long)idInt++);
     }
 }
