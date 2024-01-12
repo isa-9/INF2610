@@ -93,7 +93,7 @@ char** getAvailablePlanes(struct Plane** planes, int nPlanes){
 
 void setPlaneType(struct Plane* plane){
     const int N_CHAR_TYPE = 10;
-    
+
     struct Wing firstWing = plane->wings[0];
 
     int identifier = 0;
@@ -126,8 +126,8 @@ struct Plane* getPlanesByType(struct Plane** planes, char* type, int nPlanes) {
     struct Plane* typePlanes = malloc(nPlanes*sizeof(struct Plane));
     int j = 0;
     for (int i = 0; i < nPlanes; i++){
-        if(strcmp(type, planes[i]->planeType)) {
-            typePlanes[j++] = *planes[i];
+        if(strcmp(type, (*planes)[i].planeType)) {
+            typePlanes[j++] = (*planes)[i];
         }    
     }
     return typePlanes;
