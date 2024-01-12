@@ -133,14 +133,6 @@ struct Plane* getPlanesByType(struct Plane** planes, char* type, int nPlanes) {
 }
 
 void printPlane(struct Plane* plane){
-    struct Plane {
-    char* id;
-    char planeType[10];
-    bool isAvailable;
-    struct Wheel* wheels;
-    struct Wing* wings;
-};
-
     printf("Plane %s: \n", plane->id);
     printf("\tplaneType: %s\n", plane->planeType);
     printf("\tisAvailable: %s\n", plane->isAvailable ? "true" : "false");
