@@ -98,28 +98,29 @@ void setPlaneType(struct Plane* plane){
 
     int identifier = 0;
     for(int i = 8; i >=0; i--) {
-        identifier += firstWing.id[i];
         identifier *= 10;
+        identifier += firstWing.id[i];
     }
     
     identifier %= 9;
 
     char* size = malloc(N_CHAR_TYPE * sizeof(char));
 
-    if(identifier >= 0 && identifier <= 2) {
+    if(identifier <= 2) {
         size = "Small\0";
-    } else if (identifier >= 3 && identifier <= 6) {
+    } else if (identifier <= 6) {
         size = "Medium\0";
-    } else if (identifier == 7 || identifier == 8) {
+    } else {
         size = "Large\0";
     }
 
     int index = 0;
     while(size[index] != '\0') {
         plane->planeType[index] = size[index];
+        index++;
     }
 
-    printf("%s", size);    
+    printf("%s\n", size);    
 }
 
 struct Plane* getPlanesByType(struct Plane** planes, char* type, int nPlanes) {
@@ -144,13 +145,11 @@ int main(int argc, char** argv) {
     /* Create wheel - [2 points] */
 
     struct Wheel* wheels = createWheels(id);
-    printf("1\n");
 
     /* Create wing - [4 points] */
 
     long longId = 1;
     struct Wing* wings = createWings(longId);
-    printf("2\n");
 
 
     /* Create plane - [4 points] */
@@ -160,7 +159,6 @@ int main(int argc, char** argv) {
     char planesId[] = "304321684";
     // createPlanes(planes, *id, 3);
     createPlanes(planes, planesId, 3);
-    printf("3\n");
 
     /* PARTIE 3 - [6 points] */
 
@@ -168,24 +166,20 @@ int main(int argc, char** argv) {
     
     struct Plane plane = planes[0];
     setAvailability(&plane, true);
-    printf("4\n");
     
 
     /* Get available planes - [1 point] */
     getAvailablePlanes(&planes, numberOfPlanes);
-    printf("5\n");
     
 
     /* Classify planes - [2 points] */
     
     plane = planes[1];
     setPlaneType(&plane);
-    printf("6\n");
     
 
     /* Return type specific planes - [2 points] */
     
     char planeType[] = "Small";
     getPlanesByType(&planes, planeType,numberOfPlanes);
-    printf("7\n");
 }
