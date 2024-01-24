@@ -4,6 +4,7 @@
  * Initlab - part1.c
  * 
  * ajoutez vos noms, prénoms, matricules et votre section de laboratoire
+ * Isabella Santacuz 2204379, Michelle Nguyen 2212694, gr 01
  */
 
 // TODO
