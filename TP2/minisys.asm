@@ -4,6 +4,7 @@
 ; Initlab - minisys.asm
 ;
 ; ajoutez vos noms, prénoms et matricules
+; Isabella Santacuz 2204379, Michelle Nguyen 2212694
 ;
 ; Documentation NASM: http://www.nasm.us/doc/nasmdoc3.html
 ;
@@ -32,7 +33,8 @@ SECTION .data
                 dq  0
                 
 ; TODO  ajouter si necessaire d'autres déclarations de variables
-   
+    msg_fin     db    "Fin de la pause!", 0x0A    ; char * msg_fin = "Fin de la pause!\n";
+    msg_len_fin equ   $-msg_fin                   ; msg_len_fin = taille de msg
    
 SECTION .text
 global  _start
@@ -59,7 +61,18 @@ _start:
     ; TODO: Pause avec sys_nanosleep suivi de sys_write "Fin de la pause!\n"
     ; prototype: nanosleep(   struct timespec *time1,
     ;                         struct timespec *time2)
-    
+    ;
+        mov     rdi, delay1         ; argument 1
+        mov     rsi, delay2         ; argument 2
+        mov     rax, sys_nanosleep  ; appel système dans rax
+        syscall                     ; interruption logicielle
+
+        mov     rdi, stdout         ; argument 1
+        mov     rsi, msg_fin        ; argument 2
+        mov     rdx, msg_len_fin    ; argument 3
+        mov     rax, sys_write      ; appel systeme dans rax
+        syscall 
+
     
     ;
     ; Terminaison du processus
