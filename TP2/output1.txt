@@ -1,0 +1,57 @@
+pwd
+/home/gigl/Documents/24H/INF2610/TP2
+ls
+Makefile
+minisys.asm
+output1.txt
+output2.txt
+output3.txt
+output4.txt
+part1.c
+part2.c
+TP2_INF2610.pdf
+ls | sort
+Makefile
+minisys.asm
+output1.txt
+output2.txt
+output3.txt
+output4.txt
+part1.c
+part2.c
+TP2_INF2610.pdf
+echo "message1"
+message1
+echo "message1" > foo.txt; echo "message2" >> foo.txt; cat foo.txt 
+message1
+message2
+unlinf foo.txt; ls
+Makefile
+minisys.asm
+output1.txt
+output2.txt
+output3.txt
+output4.txt
+part1.c
+part2.c
+TP2_INF2610.pdf
+uname
+Linux
+uname -s
+Linux
+uname -r
+5.18.19-200.fc36.x86_64
+uname -o
+GNU/Linux
+uname -m
+x86_64
+echo $PATH
+/home/gigl/.local/bin:/home/gigl/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/opt/pmccabe:/usr/local/cours/inf1900/SimulIDE_0.3.12-SR8-INF1900.3/bin:/usr/local/cours/inf1900/bin:/opt/pmccabe:/usr/local/cours/inf1900/SimulIDE_0.3.12-SR8-INF1900.3/bin:/usr/local/cours/inf1900/bin
+which sleep
+/usr/bin/sleep
+cd /usr/bin
+./sleep 1
+/usr/bin/sleep 1
+cd /home/gigl/Documents/24H/INF2610/TP2
+../../../../../../usr/bin/sleep 1
+sleep 1000
