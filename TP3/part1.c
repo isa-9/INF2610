@@ -40,8 +40,7 @@ void question1()
             _exit(0);
         }
 
-        wait(NULL);
-        wait(NULL);
+        while(wait(NULL) > 0) ;
 
         _exit(2);
     }
@@ -56,8 +55,7 @@ void question1()
             _exit(0);
         }
 
-        wait(&status);
-        totalChilds += WEXITSTATUS(status);
+        wait(NULL);
 
         _exit(1);
     }
@@ -84,21 +82,15 @@ void question1()
             _exit(0);
         }
 
-        wait(NULL);
-        wait(NULL);
-        wait(NULL);
+        while(wait(NULL) > 0) ;
 
         _exit(3);
     }
 
-    wait(&status);
-    totalChilds += WEXITSTATUS(status);
 
-    wait(&status);
-    totalChilds += WEXITSTATUS(status);
-
-    wait(&status);
-    totalChilds += WEXITSTATUS(status);
+    while(wait(&status) > 0){
+        totalChilds += WEXITSTATUS(status);
+    }
 
     totalChilds += 3;
 

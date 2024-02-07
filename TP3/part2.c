@@ -34,8 +34,6 @@ void* contribution(void*p)
     somme[no] += i;
   }
 
-  printf("somme pour thread %d: %ld\n", no, somme[no]);
-
   pthread_exit(NULL);
 }
 
@@ -43,7 +41,7 @@ void* contribution(void*p)
 void question2( )
 {
   // TODO
-  pthread_t *tid = malloc (nb * sizeof(pthread_t));
+  pthread_t *tid = calloc (nb , sizeof(pthread_t));
 
   int ordre[nb];
   for(int i = 0; i < nb; i++) {
