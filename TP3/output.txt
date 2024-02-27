@@ -1,0 +1,29 @@
+4572  clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f7004bf4a10) = 4573
+4572  clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f7004bf4a10) = 4574
+4572  clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f7004bf4a10) = 4575
+4575  clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f7004bf4a10) = 4576
+4575  clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f7004bf4a10) = 4577
+4575  clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f7004bf4a10) = 4578
+4574  clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f7004bf4a10) = 4579
+4578  +++ exited with 0 +++
+4575  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4578, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+4573  clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD <unfinished ...>
+4577  +++ exited with 0 +++
+4575  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4577, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+4573  <... clone resumed>, child_tidptr=0x7f7004bf4a10) = 4580
+4573  clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f7004bf4a10) = 4581
+4579  +++ exited with 0 +++
+4574  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4579, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+4574  +++ exited with 1 +++
+4572  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4574, si_uid=1000, si_status=1, si_utime=0, si_stime=0} ---
+4576  +++ exited with 0 +++
+4575  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4576, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+4575  +++ exited with 3 +++
+4572  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4575, si_uid=1000, si_status=3, si_utime=0, si_stime=0} ---
+4580  +++ exited with 0 +++
+4573  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4580, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+4581  +++ exited with 0 +++
+4573  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4581, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+4573  +++ exited with 2 +++
+4572  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4573, si_uid=1000, si_status=2, si_utime=0, si_stime=0} ---
+4572  +++ exited with 0 +++
