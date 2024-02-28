@@ -37,7 +37,7 @@ int main() {
             dup2(fd2_3[0], 0);
             close(fd2_3[0]); close(fd2_3[1]);
 
-            int output = open("Output.txt", O_WRONLY | O_CREAT | O_TRUNC, 0660);
+            int output = open("Out.txt", O_WRONLY | O_CREAT | O_TRUNC, 0660);
             dup2(output, 1);
             close(output);
             execlp("diff", "diff", "-", "In.txt", NULL);
