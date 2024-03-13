@@ -66,7 +66,7 @@ void* consommateur(void* cid) {
         *somme += nombreTampon;
         ic = (ic + 1) % tailleTampon;
 
-        totalConsomme++;
+        totalConsomme += nombreTampon == 0 ? 0: 1;
 
         sem_post(&mutexTampon);
         sem_post(&libre);
@@ -148,7 +148,7 @@ int main(int argc, char* argv[]) {
     for(int i = 0; i < nc; i++) {
         sem_wait(&libre);
         sem_wait(&mutexTampon);
-        tampon[i] = 0;
+        tampon[ip] = 0;
         ip = (ip + 1) % tailleTampon;
         printf("ajoute 0 i: %d\n", i);
         sem_post(&mutexTampon);
