@@ -17,7 +17,7 @@ sem_t libre, occupe, mutexTampon, mutexProd, mutexCons;
 bool flag_de_fin = false;
 
 // fonction de nettoyage 
-void mfree (void *arg)  {  printf("free\n"); free(arg); }
+void mfree (void *arg)  {  free(arg); }
 
 void* producteur(void* pid) {
     // ...
@@ -40,10 +40,7 @@ void* producteur(void* pid) {
         if(flag_de_fin) break;
     }
 
-
     pthread_cleanup_pop(0);
-
-    printf("Fin Prod\n");
 
     pthread_exit(somme);
     return NULL;
@@ -70,22 +67,15 @@ void* consommateur(void* cid) {
 
         sem_post(&mutexTampon);
         sem_post(&libre);
-
-        //printf("nombreTampon: %d\n", nombreTampon);
-
         if (nombreTampon == 0) break;
     }
 
     pthread_cleanup_pop(0);
-
-    printf("Fin Cons\n");
-
     pthread_exit(somme);
 }
 
 void action(int sig) {
     if (sig == SIGALRM ) {
-        printf("Signal alarme\n");
         flag_de_fin = true;
     }
 }
@@ -150,7 +140,6 @@ int main(int argc, char* argv[]) {
         sem_wait(&mutexTampon);
         tampon[ip] = 0;
         ip = (ip + 1) % tailleTampon;
-        printf("ajoute 0 i: %d\n", i);
         sem_post(&mutexTampon);
         sem_post(&occupe);
     }
