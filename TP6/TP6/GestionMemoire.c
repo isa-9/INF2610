@@ -51,6 +51,7 @@ void rechercherTableDesPages(struct RequeteMemoire* req, struct SystemeMemoire* 
 void ajouterDansMemoire(struct RequeteMemoire* req, struct SystemeMemoire* mem) {
 	//TODO
 	const int numeroDePageReq = calculerNumeroDePage(req->adresseVirtuelle);
+	const int deplacement = calculerDeplacementDansLaPage(req->adresseVirtuelle);
 
 	for(int i = 0; i < TAILLE_MEMOIRE; i++) {
 		if(mem->memoire->utilisee[i] == 0) {
@@ -58,7 +59,7 @@ void ajouterDansMemoire(struct RequeteMemoire* req, struct SystemeMemoire* mem) 
 			mem->memoire->dateCreation[i] = req->date;
 			mem->memoire->dernierAcces[i] = req->date;
 			mem->memoire->utilisee[i] = 1;
-			
+			req->adressePhysique = calculerAdresseComplete(i, deplacement);
 			break;
 		}
 	}
@@ -66,17 +67,28 @@ void ajouterDansMemoire(struct RequeteMemoire* req, struct SystemeMemoire* mem) 
 
 void mettreAJourTLB(struct RequeteMemoire* req, struct SystemeMemoire* mem) {
 	// TODO
-	int indexMin = 0;
-	for(int i = 0; i < TAILLE_TLB; i++) {
-		if (mem->tlb->dernierAcces[i] < mem->tlb->dernierAcces[indexMin])
-			indexMin = i;
-	}
+	int index = 0;
 
-	mem->tlb->numeroPage[indexMin] = calculerNumeroDePage(req->adresseVirtuelle);
-	mem->tlb->numeroCadre[indexMin] = calculerNumeroDePage(req->adressePhysique);
-	mem->tlb->dateCreation[indexMin] = req->date;
-	mem->tlb->dernierAcces[indexMin] = req->date;
-	mem->tlb->entreeValide[indexMin] = 1;
+	if (mem->tlb->entreeValide[TAILLE_TLB - 1] == 1) {
+		// TLB Plein
+		for(int i = 0; i < TAILLE_TLB; i++) {
+			if (mem->tlb->dateCreation[i] <= mem->tlb->dateCreation[index])
+				index = i;
+		}
+	} else {
+		for(int i = 0; i < TAILLE_TLB; i++) {
+			if (mem->tlb->entreeValide[i] == 0) {
+				index = i;
+				break;
+			}
+		}
+	}
+	
+	mem->tlb->numeroPage[index] = calculerNumeroDePage(req->adresseVirtuelle);
+	mem->tlb->numeroCadre[index] = calculerNumeroDePage(req->adressePhysique);
+	mem->tlb->dateCreation[index] = req->date;
+	mem->tlb->dernierAcces[index] = req->date;
+	mem->tlb->entreeValide[index] = 1;
 }
 
 // NE PAS MODIFIER
